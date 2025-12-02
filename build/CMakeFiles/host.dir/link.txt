@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/host.dir/src_prototipo/host.cpp.o CMakeFiles/host.dir/src/objloader.cpp.o CMakeFiles/host.dir/src/glad.c.o -o host.exe  -ldl /usr/lib/x86_64-linux-gnu/libglfw.so.3.3 /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so 

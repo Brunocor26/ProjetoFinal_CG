@@ -1,0 +1,56 @@
+[
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/maze.dir/src_prototipo/main.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src_prototipo/main.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src_prototipo/main.cpp",
+  "output": "CMakeFiles/maze.dir/src_prototipo/main.cpp.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/maze.dir/src/objloader.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/objloader.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/objloader.cpp",
+  "output": "CMakeFiles/maze.dir/src/objloader.cpp.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/gcc  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -o CMakeFiles/maze.dir/src/glad.c.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/glad.c",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/glad.c",
+  "output": "CMakeFiles/maze.dir/src/glad.c.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/host.dir/src_prototipo/host.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src_prototipo/host.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src_prototipo/host.cpp",
+  "output": "CMakeFiles/host.dir/src_prototipo/host.cpp.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/host.dir/src/objloader.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/objloader.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/objloader.cpp",
+  "output": "CMakeFiles/host.dir/src/objloader.cpp.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/gcc  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -o CMakeFiles/host.dir/src/glad.c.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/glad.c",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/glad.c",
+  "output": "CMakeFiles/host.dir/src/glad.c.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/client.dir/src_prototipo/cliente.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src_prototipo/cliente.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src_prototipo/cliente.cpp",
+  "output": "CMakeFiles/client.dir/src_prototipo/cliente.cpp.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/client.dir/src/objloader.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/objloader.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/objloader.cpp",
+  "output": "CMakeFiles/client.dir/src/objloader.cpp.o"
+},
+{
+  "directory": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build",
+  "command": "/usr/bin/g++  -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/common -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/include -I/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build/configuration -g -std=gnu++17 -o CMakeFiles/client.dir/src/shader.cpp.o -c /home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/shader.cpp",
+  "file": "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/src/shader.cpp",
+  "output": "CMakeFiles/client.dir/src/shader.cpp.o"
+}
+]

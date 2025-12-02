@@ -1,0 +1,18 @@
+# Material for the Deer model
+# Phong material properties
+
+newmtl DeerMaterial
+  # Ambient reflectivity (how much ambient light is reflected)
+  Ka 0.2 0.2 0.2
+  
+  # Diffuse reflectivity (main color under diffuse lighting)
+  Kd 0.6 0.6 0.6
+  
+  # Specular reflectivity (highlight color)
+  Ks 0.9 0.9 0.9
+  
+  # Shininess exponent (higher = sharper highlights, lower = duller)
+  Ns 32.0
+  
+  # Dissolve/Transparency (1.0 = fully opaque)
+  d 1.0
