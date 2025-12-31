@@ -1,6 +1,9 @@
-\xpginauxfiletrue 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\setforeignlanguage {portuguese}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \xpg@aux {variant=portuguese}{portuguese}Efeito de lanterna (Spotlight) e atenuação da luz nas paredes do labirinto.}}{11}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces \xpg@aux {variant=portuguese}{portuguese}Menu introdutório renderizado com FreeType sobre a cena 3D.}}{13}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces \xpg@aux {variant=portuguese}{portuguese}Ambiente exterior mostrando as árvores procedurais e o portal ao fundo.}}{14}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces \xpg@aux {variant=portuguese}{portuguese}Overlay de Pausa renderizado quando o jogador pressiona ESC.}}{15}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces \xpg@aux {variant=portuguese}{portuguese}Renderização do Portal com efeito "Mercúrio Líquido" e iluminação Fresnel.}}{16}{figure.caption.14}%
 \addvspace {10\p@ }

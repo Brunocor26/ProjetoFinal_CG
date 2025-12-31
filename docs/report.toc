@@ -1,5 +1,4 @@
-\xpginauxfiletrue 
-\selectlanguage *[variant=portuguese]{portuguese}
+\xpg@aux {variant=portuguese}{portuguese}
 \contentsline {chapter}{Resumo}{iii}{section*.1}%
 \contentsline {chapter}{Índice}{v}{section*.3}%
 \contentsline {chapter}{Lista de Figuras}{vii}{section*.5}%
@@ -35,17 +34,19 @@
 \contentsline {section}{\numberline {3.3}Funcionalidades Implementadas}{11}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Geração Procedural de Labirintos}{11}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Sistema de Iluminação Dinâmica}{11}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Networking Host/Cliente}{11}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.3}Networking Host/Cliente}{12}{subsection.3.3.3}%
 \contentsline {subsection}{\numberline {3.3.4}Sistema de Diálogo Introdutório}{12}{subsection.3.3.4}%
 \contentsline {subsection}{\numberline {3.3.5}Ambiente Exterior}{12}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Deteção de Colisões}{12}{subsection.3.3.6}%
-\contentsline {subsection}{\numberline {3.3.7}Sistema de Pausa}{12}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}Transição de Cor Progressiva}{13}{subsection.3.3.8}%
-\contentsline {subsection}{\numberline {3.3.9}Texturas e Materiais}{13}{subsection.3.3.9}%
-\contentsline {section}{\numberline {3.4}Documentação com Doxygen}{13}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Conclusão e Trabalho Futuro}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Conclusão}{15}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}O que se Fez}{15}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Limitações e Trabalho Não Realizado}{16}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Trabalho Futuro}{16}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Considerações Finais}{17}{section.4.4}%
+\contentsline {subsection}{\numberline {3.3.6}Deteção de Colisões}{13}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}Sistema de Pausa}{13}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}Transição de Cor Progressiva}{14}{subsection.3.3.8}%
+\contentsline {subsection}{\numberline {3.3.9}Shader de Metal Líquido (Portal)}{15}{subsection.3.3.9}%
+\contentsline {subsection}{\numberline {3.3.10}Texturas e Materiais}{15}{subsection.3.3.10}%
+\contentsline {section}{\numberline {3.4}Documentação com Doxygen}{16}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Conclusão e Trabalho Futuro}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Conclusão}{17}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}O que se Fez}{17}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Limitações e Trabalho Não Realizado}{18}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Trabalho Futuro}{18}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Considerações Finais}{19}{section.4.4}%
+\contentsline {chapter}{Bibliografia}{21}{section*.15}%

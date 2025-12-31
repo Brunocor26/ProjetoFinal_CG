@@ -1,0 +1,8 @@
+\backcite {template-ubi-latex}{{1}{1}{chapter.1}}
+\backcite {OpenGL}{{3}{2.1}{section.2.1}}
+\backcite {GLFW}{{3}{2.2}{section.2.2}}
+\backcite {GLM}{{4}{2.3}{section.2.3}}
+\backcite {FreeType}{{4}{2.5}{section.2.5}}
+\backcite {STBImage}{{5}{2.6}{section.2.6}}
+\backcite {CMake}{{5}{2.7}{section.2.7}}
+\backcite {MazeAlgorithms}{{9}{3.2.5}{subsection.3.2.5}}
