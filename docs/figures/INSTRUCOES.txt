@@ -1,0 +1,20 @@
+[INSTRUÇÕES PARA CAPTURA DE ECRÃ]
+
+Para o relatório ficar completo, precisamos de 3 capturas de ecrã (screenshots) do jogo.
+Por favor, corre o jogo, tira estas fotos e guarda-as nesta pasta (docs/figures) com os nomes exatos abaixo:
+
+1. FOTO: Efeito de Lanterna
+   - O que mostrar: O interior do labirinto, iluminando uma parede ou canto escuro.
+   - Nome do ficheiro: lighting_flashlight.png
+
+2. FOTO: Menu Inicial
+   - O que mostrar: O ecrã inicial com o texto "HOST | CLIENT" e as instruções.
+   - Nome do ficheiro: intro_dialog.png
+
+3. FOTO: Exterior e Árvores
+   - O que mostrar: Uma vista de fora do labirinto, mostrando o céu (se houver), a relva e as árvores "pontudas". Se conseguires apanhar o portal ao longe, melhor ainda.
+   - Nome do ficheiro: outdoor_trees.png
+
+NOTA: O ficheiro "portal_effect.png" já cá está!
+
+Assim que guardares estes 3 ficheiros aqui, faz o upload da pasta 'docs' para o Overleaf e o relatório fica perfeito.

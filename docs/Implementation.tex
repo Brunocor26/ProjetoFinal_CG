@@ -153,6 +153,13 @@ O jogo implementa um sistema de iluminação tipo lanterna (\textit{flashlight/s
 
 O vertex shader (\texttt{shaders/maze\_vs.glsl}) transforma vértices e calcula posições para iluminação. O fragment shader (\texttt{shaders/maze\_fs.glsl}) implementa o modelo de iluminação de Phong modificado com características de spotlight.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/lighting_flashlight.png}
+    \caption{Efeito de lanterna (Spotlight) e atenuação da luz nas paredes do labirinto.}
+    \label{fig:lighting}
+\end{figure}
+
 \subsection{Networking Host/Cliente}
 O jogo suporta dois modos de execução:
 
@@ -184,6 +191,13 @@ Ao iniciar o jogo, é apresentado um diálogo com:
 
 Durante a apresentação do diálogo, a entrada de movimento é ignorada.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/intro_dialog.png}
+    \caption{Menu introdutório renderizado com FreeType sobre a cena 3D.}
+    \label{fig:intro}
+\end{figure}
+
 \subsection{Ambiente Exterior}
 Para além do labirinto, o jogo inclui:
 
@@ -192,6 +206,13 @@ Para além do labirinto, o jogo inclui:
     \item \textbf{Árvores procedurais}: Árvores simples compostas por tronco (cilindro) e copa (pirâmide)
     \item \textbf{Portal de saída}: Esfera flutuante com efeito visual de "Mercúrio Líquido/Prata" (\textit{Liquid Silver}), gerado proceduralmente via shaders GLSL, que pulsa e brilha, atuando como o objetivo final do jogo.
 \end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/outdoor_trees.png}
+    \caption{Ambiente exterior mostrando as árvores procedurais e o portal ao fundo.}
+    \label{fig:outdoor}
+\end{figure}
 
 \subsection{Deteção de Colisões}
 O sistema de colisões verifica:
