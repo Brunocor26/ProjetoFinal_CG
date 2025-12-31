@@ -284,11 +284,40 @@ O jogo utiliza texturas PBR (Physically-Based Rendering) de alta qualidade (4K):
     \item \textbf{Exterior}: Textura de relva (Grass005)
 \end{itemize}
 
-\section{Documentação com Doxygen} \label{sec:impl_doxygen}
-O código está parcialmente documentado com comentários compatíveis com Doxygen. A classe \texttt{maze::kruskal} contém documentação Doxygen completa. Para gerar documentação HTML:
+\subsection{Minimapa (HUD)}
+Foi implementado um minimapa 2D no canto superior direito do ecrã para auxiliar a navegação do jogador.
 
+\textbf{Implementação Técnica}:
+\begin{itemize}
+    \item \textbf{Renderização}: Utiliza um shader simples (\texttt{simpleShader}) que desenha apenas cores sólidas, sem texturas ou iluminação.
+    \item \textbf{Projeção}: Usa uma matriz de projeção ortográfica (\texttt{glm::ortho}) para mapear coordenadas de ecrã (pixels) diretamente, ignorando a perspetiva 3D.
+    \item \textbf{Conteúdo}:
+    \begin{itemize}
+        \item \textbf{Fundo}: Retângulo cinzento escuro semi-transparente.
+        \item \textbf{Labirinto}: Itera sobre a estrutura de dados \texttt{grid} do labirinto e desenha quadrados pretos para cada parede.
+        \item \textbf{Jogador}: Um quadrado vermelho representa a posição atual da câmara, atualizada em tempo real.
+    \end{itemize}
+\end{itemize}
+
+O minimapa ignora o \textit{Depth Test} durante a sua renderização para garantir que aparece sempre sobreposta à cena 3D (HUD).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/minimap.png}
+    \caption{Interface de jogo com o Minimapa no canto superior direito, mostrando a posição do jogador (vermelho) e as paredes (preto).}
+    \label{fig:minimap}
+\end{figure}
+
+\section{Documentação com Doxygen} \label{sec:impl_doxygen}
+Todas as classes e ficheiros de cabeçalho do projeto foram documentados utilizando o formato Doxygen. Isto inclui descrições detalhadas de:
+\begin{itemize}
+    \item Classes principais (\texttt{Game}, \texttt{Maze}, \texttt{Camera})
+    \item Utilitários (\texttt{Objloader}, \texttt{Texture}, \texttt{TextRenderer})
+    \item Estruturas de dados e definições de tipos
+\end{itemize}
+
+A documentação HTML pode ser gerada executando o comando:
 \begin{lstlisting}[language=bash]
 doxygen Doxyfile
 \end{lstlisting}
-
-\textbf{Nota}: A documentação Doxygen completa para todas as classes é um objetivo de trabalho futuro.
+Esta documentação técnica facilita a manutenção futura e a compreensão da arquitetura por novos desenvolvedores.

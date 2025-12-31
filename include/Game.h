@@ -268,12 +268,34 @@ private:
   // MINIMAP RESOURCES
   // ========================================================================
   
+  /**
+   * @brief VAO (Vertex Array Object) para o minimapa
+   */
   unsigned int minimapVAO;
+
+  /**
+   * @brief VBO (Vertex Buffer Object) para o minimapa
+   */
   unsigned int minimapVBO;
-  class Shader *simpleShader; // Shader for 2D solid color drawing
+
+  /**
+   * @brief Shader usado para renderização 2D de cor sólida
+   * 
+   * Usado pelo minimapa para desenhar paredes, jogador e fundo
+   * sem texturas ou iluminação complexa.
+   */
+  class Shader *simpleShader; 
   
   /**
-   * @brief Renders the 2D Minimap
+   * @brief Renderiza o Minimapa 2D
+   *
+   * Desenha uma representação top-down do labirinto no canto
+   * superior direito do ecrã, mostrando:
+   * - Paredes (Preto)
+   * - Jogador (Vermelho)
+   * - Fundo (Cinzento escuro)
+   *
+   * @note Usa projeção ortográfica 2D.
    */
   void RenderMinimap();
 };

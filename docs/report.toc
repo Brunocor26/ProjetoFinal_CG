@@ -42,11 +42,12 @@
 \contentsline {subsection}{\numberline {3.3.8}Transição de Cor Progressiva}{14}{subsection.3.3.8}%
 \contentsline {subsection}{\numberline {3.3.9}Shader de Metal Líquido (Portal)}{15}{subsection.3.3.9}%
 \contentsline {subsection}{\numberline {3.3.10}Texturas e Materiais}{15}{subsection.3.3.10}%
-\contentsline {section}{\numberline {3.4}Documentação com Doxygen}{16}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Conclusão e Trabalho Futuro}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Conclusão}{17}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}O que se Fez}{17}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Limitações e Trabalho Não Realizado}{18}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Trabalho Futuro}{18}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Considerações Finais}{19}{section.4.4}%
-\contentsline {chapter}{Bibliografia}{21}{section*.15}%
+\contentsline {subsection}{\numberline {3.3.11}Minimapa (HUD)}{16}{subsection.3.3.11}%
+\contentsline {section}{\numberline {3.4}Documentação com Doxygen}{17}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Conclusão e Trabalho Futuro}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Conclusão}{19}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}O que se Fez}{19}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Limitações e Trabalho Não Realizado}{20}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Trabalho Futuro}{20}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Considerações Finais}{21}{section.4.4}%
+\contentsline {chapter}{Bibliografia}{23}{section*.16}%
