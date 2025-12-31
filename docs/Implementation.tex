@@ -220,6 +220,7 @@ O sistema de colisões verifica:
     \item Interseção do jogador com paredes do labirinto
     \item Movimento é bloqueado em direções que causariam colisão
     \item Permite movimento deslizante ao longo de paredes
+    \item \textbf{Prevenção de Clipping}: Implementado um raio de colisão (\texttt{playerRadius = 0.3f}) em torno da câmara para impedir que o plano de visualização atravesse as esquinas das paredes.
 \end{itemize}
 
 \subsection{Sistema de Pausa}
