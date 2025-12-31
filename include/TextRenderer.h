@@ -17,20 +17,51 @@ struct Character {
   unsigned int Advance;   // Offset to advance to next glyph
 };
 
+/**
+ * @brief Renders text using FreeType and OpenGL.
+ */
 class TextRenderer {
 public:
-  // Holds a list of pre-compiled Characters
+  /** @brief Holds a list of pre-compiled Characters */
   std::map<char, Character> Characters;
-  // Shader used for text rendering
+  /** @brief Shader used for text rendering */
   unsigned int TextShader;
-  // Constructor
+  
+  /**
+   * @brief Construct a new Text Renderer object.
+   * 
+   * @param width Screen width.
+   * @param height Screen height.
+   */
   TextRenderer(unsigned int width, unsigned int height);
-  // Pre-compiles a list of characters from the given font
+  
+  /**
+   * @brief Pre-compiles a list of characters from the given font.
+   * 
+   * @param font Path to the font file.
+   * @param fontSize Size of the font to load.
+   */
   void Load(std::string font, unsigned int fontSize);
-  // Renders a string of text using the precompiled list of characters
+  
+  /**
+   * @brief Renders a string of text using the precompiled list of characters.
+   * 
+   * @param text The text string to render.
+   * @param x Screen X position.
+   * @param y Screen Y position.
+   * @param scale Scaling factor.
+   * @param color Text color (RGB).
+   */
   void RenderText(std::string text, float x, float y, float scale,
                   glm::vec3 color = glm::vec3(1.0f));
-  // Calculates the width of a text string in pixels
+                  
+  /**
+   * @brief Calculates the width of a text string in pixels.
+   * 
+   * @param text The text to measure.
+   * @param scale The scale factor to apply.
+   * @return float The total width in pixels.
+   */
   float CalculateTextWidth(std::string text, float scale);
 
 private:
