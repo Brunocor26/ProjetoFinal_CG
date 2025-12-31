@@ -1262,8 +1262,8 @@ void Game::RenderMinimap() {
   float uiX = startX + playerGridX * cellSize;
   float uiY = (startY + mapSize) - (playerGridZ * cellSize) - cellSize; // Approximate center
   
-  // Make player size reasonable (slightly larger than cell)
-  float playerIconSize = cellSize * 1.2f; 
+  // Make player size smaller to fit in corridors
+  float playerIconSize = cellSize * 0.8f; 
   // Center the icon 
   uiX -= (playerIconSize - cellSize) / 2.0f;
   uiY -= (playerIconSize - cellSize) / 2.0f;
