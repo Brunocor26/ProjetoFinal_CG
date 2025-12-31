@@ -26,7 +26,7 @@ bool Network::bindAndListen(int socket, int port) {
   serverAddress.sin_port = htons(port);
   serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-  if (bind(socket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) <
+  if (::bind(socket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) <
       0) {
     cerr << "Erro no bind: " << strerror(errno) << endl;
     return false;

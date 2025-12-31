@@ -1,1 +1,1 @@
-const char *logl_root = "/home/bruno/Desktop/3Ano/CG/ProjetoFinal/build";
+const char *logl_root = "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/build";

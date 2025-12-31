@@ -43,10 +43,12 @@ bool loadMTL(const char *path, std::map<std::string, Material> &out_materials) {
 }
 
 bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
+             std::vector<glm::vec2> &out_uvs,
              std::vector<glm::vec3> &out_normals) {
   std::vector<glm::vec3> temp_vertices;
+  std::vector<glm::vec2> temp_uvs;
   std::vector<glm::vec3> temp_normals;
-  std::vector<unsigned int> vertexIndices, normalIndices;
+  std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 
   std::ifstream file(path);
   if (!file.is_open()) {
@@ -65,6 +67,11 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
       glm::vec3 vertex;
       iss >> vertex.x >> vertex.y >> vertex.z;
       temp_vertices.push_back(vertex);
+    } else if (prefix == "vt") {
+      // Texture coordinate
+      glm::vec2 uv;
+      iss >> uv.x >> uv.y;
+      temp_uvs.push_back(uv);
     } else if (prefix == "vn") {
       // Vertex normal
       glm::vec3 normal;
@@ -76,7 +83,8 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
       iss >> vertex1 >> vertex2 >> vertex3;
 
       // Parse face format: v/vt/vn or v//vn or v/vt or v
-      unsigned int vertexIndex[3], normalIndex[3];
+      unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+      bool hasUVs = false;
       bool hasNormals = false;
 
       for (int i = 0; i < 3; i++) {
@@ -88,7 +96,9 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
         // Try v/vt/vn format
         if (sscanf(vertexStr, "%d/%d/%d", &v, &vt, &vn) == 3) {
           vertexIndex[i] = v;
+          uvIndex[i] = vt;
           normalIndex[i] = vn;
+          hasUVs = true;
           hasNormals = true;
         }
         // Try v//vn format
@@ -97,9 +107,14 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
           normalIndex[i] = vn;
           hasNormals = true;
         }
-        // Try v/vt format or just v
-        else if (sscanf(vertexStr, "%d/%d", &v, &vt) == 2 ||
-                 sscanf(vertexStr, "%d", &v) == 1) {
+        // Try v/vt format
+        else if (sscanf(vertexStr, "%d/%d", &v, &vt) == 2) {
+            vertexIndex[i] = v;
+            uvIndex[i] = vt;
+            hasUVs = true;
+        }
+        // Try just v
+        else if (sscanf(vertexStr, "%d", &v) == 1) {
           vertexIndex[i] = v;
         }
       }
@@ -108,6 +123,12 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
       vertexIndices.push_back(vertexIndex[0] - 1);
       vertexIndices.push_back(vertexIndex[1] - 1);
       vertexIndices.push_back(vertexIndex[2] - 1);
+
+      if (hasUVs) {
+          uvIndices.push_back(uvIndex[0] - 1);
+          uvIndices.push_back(uvIndex[1] - 1);
+          uvIndices.push_back(uvIndex[2] - 1);
+      }
 
       if (hasNormals) {
         normalIndices.push_back(normalIndex[0] - 1);
@@ -125,6 +146,18 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
     glm::vec3 vertex = temp_vertices[vertexIndex];
     out_vertices.push_back(vertex);
 
+    if (i < uvIndices.size()) {
+        unsigned int uvIndex = uvIndices[i];
+        if (uvIndex < temp_uvs.size()) {
+            glm::vec2 uv = temp_uvs[uvIndex];
+            out_uvs.push_back(uv);
+        } else {
+             out_uvs.push_back(glm::vec2(0.0f, 0.0f));
+        }
+    } else {
+         out_uvs.push_back(glm::vec2(0.0f, 0.0f));
+    }
+
     if (i < normalIndices.size()) {
       unsigned int normalIndex = normalIndices[i];
       glm::vec3 normal = temp_normals[normalIndex];
@@ -136,6 +169,7 @@ bool loadOBJ(const char *path, std::vector<glm::vec3> &out_vertices,
   }
 
   std::cout << "OBJ Loaded: " << path << " | Vertices: " << out_vertices.size()
+            << " | UVs: " << out_uvs.size() 
             << " | Normals: " << out_normals.size() << std::endl;
 
   return true;

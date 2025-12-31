@@ -28,8 +28,48 @@ uniform bool useTexture;
 uniform vec3 objectColor;
 uniform vec3 environmentTint; // Progressive color tint based on portal proximity
 
+uniform float time;
+uniform bool isPortal; // New uniform to toggle portal effect
+
 void main()
 {
+    // --- PORTAL EFFECT (Liquid Silver / Magic Orb) ---
+    if (isPortal) {
+        // 1. Basic Setup
+        vec3 norm = normalize(Normal);
+        vec3 viewDir = normalize(viewPos - FragPos);
+        
+        // 2. Animated Pattern (Liquid Metal / Energy Plasma)
+        // Combine sine waves at different frequencies
+        float t = time * 2.0;
+        float wave1 = sin(TexCoord.x * 20.0 + t);
+        float wave2 = cos(TexCoord.y * 20.0 + t);
+        float wave3 = sin((TexCoord.x + TexCoord.y) * 15.0 - t * 1.5);
+        
+        float pattern = (wave1 + wave2 + wave3); // Range approx -3 to 3
+        pattern = smoothstep(0.0, 2.0, abs(pattern)); // Create sharp bright bands
+        
+        // 3. Colors
+        vec3 silverColor = vec3(0.7, 0.75, 0.8); // Bluish Silver base
+        vec3 brightSpot = vec3(1.0, 1.0, 1.0);   // Pure White highlights
+        vec3 energyGlow = vec3(0.5, 0.8, 1.0);   // Cyan/Electric glow
+        
+        vec3 finalColor = mix(silverColor, brightSpot, pattern * 0.5);
+        
+        // 4. Fresnel Effect (Rim Lighting for Magic Orb look)
+        // Edges glow brighter
+        float fresnel = pow(1.0 - max(dot(viewDir, norm), 0.0), 3.0);
+        finalColor += energyGlow * fresnel * 1.5;
+        
+        // 5. Pulsing Core
+        float corePulse = sin(time * 3.0) * 0.1 + 0.9;
+        finalColor *= corePulse;
+
+        FragColor = vec4(finalColor, 1.0);
+        return; 
+    }
+
+    // --- STANDARD LIGHTING (Existing Code) ---
     vec3 color = objectColor;
     if(useTexture) {
         color = texture(texture_diffuse1, TexCoord).rgb * objectColor;

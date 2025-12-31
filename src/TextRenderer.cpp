@@ -170,3 +170,13 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale,
   glBindVertexArray(0);
   glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+float TextRenderer::CalculateTextWidth(std::string text, float scale) {
+  float width = 0.0f;
+  std::string::const_iterator c;
+  for (c = text.begin(); c != text.end(); c++) {
+    Character ch = Characters[*c];
+    width += (ch.Advance >> 6) * scale;
+  }
+  return width;
+}

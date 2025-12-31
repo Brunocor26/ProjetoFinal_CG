@@ -230,6 +230,7 @@ public:
    * controlos e botão para iniciar.
    */
   void RenderIntroDialog();
+  void RenderPauseOverlay();
 
 private:
   // ========================================================================

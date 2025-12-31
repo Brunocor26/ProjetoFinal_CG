@@ -19,6 +19,8 @@
 #include "../include/Texture.h"
 #include "../include/stb_image.h"
 #include <iostream>
+#include "../include/Objloader.hpp"
+#include <sys/select.h>
 
 // ============================================================================
 // GLOBAL CONSTANTS AND VARIABLES
@@ -183,7 +185,7 @@ void Game::Init() {
                       glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -89.0f);
 
   // 2. Shaders
-  gameShader = new Shader("shaders/maze_vs.glsl", "shaders/maze_fs.glsl");
+  gameShader = new Shader("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/shaders/maze_vs.glsl", "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/shaders/maze_fs.glsl");
   std::cout << "Shader Program ID: " << gameShader->ID << std::endl;
   gameShader->use();
   gameShader->setInt("texture1", 0);
@@ -216,7 +218,7 @@ void Game::Init() {
       {{0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
       {{0.5f, 0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
       {{0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
-      {{0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}},
+      {{0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}},
       {{0.5f, -0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
       {{0.5f, 0.5f, 0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
 
@@ -249,21 +251,21 @@ void Game::Init() {
 
   // Load Textures
   // Walls use Bricks101 textures
-  unsigned int wallTex = loadTexture("assets/textures/Bricks101_4K-PNG/"
+  unsigned int wallTex = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Bricks101_4K-PNG/"
                                      "Bricks101_4K-PNG_Color.png");
-  unsigned int wallNormal = loadTexture("assets/textures/Bricks101_4K-PNG/"
+  unsigned int wallNormal = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Bricks101_4K-PNG/"
                                         "Bricks101_4K-PNG_NormalGL.png");
-  unsigned int wallRoughness = loadTexture("assets/textures/Bricks101_4K-PNG/"
+  unsigned int wallRoughness = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Bricks101_4K-PNG/"
                                            "Bricks101_4K-PNG_Roughness.png");
 
   // Floor uses PavingStones138 textures
-  unsigned int floorTex = loadTexture("assets/textures/PavingStones138_4K-PNG/"
+  unsigned int floorTex = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/PavingStones138_4K-PNG/"
                                       "PavingStones138_4K-PNG_Color.png");
   unsigned int floorNormal =
-      loadTexture("assets/textures/PavingStones138_4K-PNG/"
+      loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/PavingStones138_4K-PNG/"
                   "PavingStones138_4K-PNG_NormalGL.png");
   unsigned int floorRoughness =
-      loadTexture("assets/textures/PavingStones138_4K-PNG/"
+      loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/PavingStones138_4K-PNG/"
                   "PavingStones138_4K-PNG_Roughness.png");
 
   // Create Texture structs for walls (Bricks)
@@ -271,37 +273,37 @@ void Game::Init() {
   wallTextureStruct.id = wallTex;
   wallTextureStruct.type = "texture_diffuse";
   wallTextureStruct.path =
-      "assets/textures/Bricks101_4K-PNG/Bricks101_4K-PNG_Color.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Bricks101_4K-PNG/Bricks101_4K-PNG_Color.png";
 
   Texture wallNormalStruct;
   wallNormalStruct.id = wallNormal;
   wallNormalStruct.type = "texture_normal";
   wallNormalStruct.path =
-      "assets/textures/Bricks101_4K-PNG/Bricks101_4K-PNG_NormalGL.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Bricks101_4K-PNG/Bricks101_4K-PNG_NormalGL.png";
 
   Texture wallRoughnessStruct;
   wallRoughnessStruct.id = wallRoughness;
   wallRoughnessStruct.type = "texture_roughness";
   wallRoughnessStruct.path =
-      "assets/textures/Bricks101_4K-PNG/Bricks101_4K-PNG_Roughness.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Bricks101_4K-PNG/Bricks101_4K-PNG_Roughness.png";
 
   // Create Texture structs for floor (PavingStones)
   Texture floorTextureStruct;
   floorTextureStruct.id = floorTex;
   floorTextureStruct.type = "texture_diffuse";
   floorTextureStruct.path =
-      "assets/textures/PavingStones138_4K-PNG/PavingStones138_4K-PNG_Color.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/PavingStones138_4K-PNG/PavingStones138_4K-PNG_Color.png";
 
   Texture floorNormalStruct;
   floorNormalStruct.id = floorNormal;
   floorNormalStruct.type = "texture_normal";
-  floorNormalStruct.path = "assets/textures/PavingStones138_4K-PNG/"
+  floorNormalStruct.path = "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/PavingStones138_4K-PNG/"
                            "PavingStones138_4K-PNG_NormalGL.png";
 
   Texture floorRoughnessStruct;
   floorRoughnessStruct.id = floorRoughness;
   floorRoughnessStruct.type = "texture_roughness";
-  floorRoughnessStruct.path = "assets/textures/PavingStones138_4K-PNG/"
+  floorRoughnessStruct.path = "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/PavingStones138_4K-PNG/"
                               "PavingStones138_4K-PNG_Roughness.png";
 
   std::vector<Texture> wallTextures;
@@ -347,30 +349,30 @@ end_loop_init:
 
   // 5. Outdoor Environment
   // Create grass texture for outdoor ground
-  unsigned int grassTex = loadTexture("assets/textures/Grass005_4K-PNG/"
+  unsigned int grassTex = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Grass005_4K-PNG/"
                                       "Grass005_4K-PNG_Color.png");
-  unsigned int grassNormal = loadTexture("assets/textures/Grass005_4K-PNG/"
+  unsigned int grassNormal = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Grass005_4K-PNG/"
                                          "Grass005_4K-PNG_NormalGL.png");
-  unsigned int grassRoughness = loadTexture("assets/textures/Grass005_4K-PNG/"
+  unsigned int grassRoughness = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Grass005_4K-PNG/"
                                             "Grass005_4K-PNG_Roughness.png");
 
   Texture grassTextureStruct;
   grassTextureStruct.id = grassTex;
   grassTextureStruct.type = "texture_diffuse";
   grassTextureStruct.path =
-      "assets/textures/Grass005_4K-PNG/Grass005_4K-PNG_Color.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Grass005_4K-PNG/Grass005_4K-PNG_Color.png";
 
   Texture grassNormalStruct;
   grassNormalStruct.id = grassNormal;
   grassNormalStruct.type = "texture_normal";
   grassNormalStruct.path =
-      "assets/textures/Grass005_4K-PNG/Grass005_4K-PNG_NormalGL.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Grass005_4K-PNG/Grass005_4K-PNG_NormalGL.png";
 
   Texture grassRoughnessStruct;
   grassRoughnessStruct.id = grassRoughness;
   grassRoughnessStruct.type = "texture_roughness";
   grassRoughnessStruct.path =
-      "assets/textures/Grass005_4K-PNG/Grass005_4K-PNG_Roughness.png";
+      "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/textures/Grass005_4K-PNG/Grass005_4K-PNG_Roughness.png";
 
   std::vector<Texture> grassTextures;
   grassTextures.push_back(grassTextureStruct);
@@ -406,64 +408,90 @@ end_loop_init:
 
   outdoorGroundMesh = new Mesh(outdoorGroundVertices, {}, grassTextures);
 
-  // Create simple procedural tree (trunk + cone-shaped canopy)
+  // 5a. Improved Procedural Tree (Pine Style)
+  std::cout << "Generating procedural trees..." << std::endl;
   std::vector<Vertex> treeVertices;
+  std::vector<Texture> treeTextures;
 
-  // Trunk (brown cylinder approximated with box)
-  float trunkHeight = 2.0f;
-  float trunkWidth = 0.3f;
-  glm::vec3 brownColor(0.6f, 0.4f, 0.2f);
+  // Load tree texture (Leaves0120_35_S.png) - We keep using this texture!
+  unsigned int treeTex = loadTexture("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/models/Tree1/Leaves0120_35_S.png");
+  
+  Texture treeTextureStruct;
+  treeTextureStruct.id = treeTex;
+  treeTextureStruct.type = "texture_diffuse";
+  treeTextureStruct.path = "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/assets/models/Tree1/Leaves0120_35_S.png";
+  treeTextures.push_back(treeTextureStruct);
 
-  // Trunk front face
-  treeVertices.push_back(
-      {{-trunkWidth, 0.0f, -trunkWidth}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}});
-  treeVertices.push_back(
-      {{trunkWidth, 0.0f, -trunkWidth}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}});
-  treeVertices.push_back({{trunkWidth, trunkHeight, -trunkWidth},
-                          {0.0f, 0.0f, -1.0f},
-                          {1.0f, 1.0f}});
-  treeVertices.push_back({{trunkWidth, trunkHeight, -trunkWidth},
-                          {0.0f, 0.0f, -1.0f},
-                          {1.0f, 1.0f}});
-  treeVertices.push_back({{-trunkWidth, trunkHeight, -trunkWidth},
-                          {0.0f, 0.0f, -1.0f},
-                          {0.0f, 1.0f}});
-  treeVertices.push_back(
-      {{-trunkWidth, 0.0f, -trunkWidth}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}});
+  // --- TRUNK ---
+  float trunkH = 2.0f;
+  float trunkW = 0.4f;
+  // Simple box for trunk
+  // Front
+  treeVertices.push_back({{-trunkW, 0.0f, -trunkW}, {0,0,-1}, {0,0}});
+  treeVertices.push_back({{trunkW, 0.0f, -trunkW}, {0,0,-1}, {1,0}});
+  treeVertices.push_back({{trunkW, trunkH, -trunkW}, {0,0,-1}, {1,1}});
+  treeVertices.push_back({{trunkW, trunkH, -trunkW}, {0,0,-1}, {1,1}});
+  treeVertices.push_back({{-trunkW, trunkH, -trunkW}, {0,0,-1}, {0,1}});
+  treeVertices.push_back({{-trunkW, 0.0f, -trunkW}, {0,0,-1}, {0,0}});
+  // Back
+  treeVertices.push_back({{-trunkW, 0.0f, trunkW}, {0,0,1}, {0,0}});
+  treeVertices.push_back({{trunkW, 0.0f, trunkW}, {0,0,1}, {1,0}});
+  treeVertices.push_back({{trunkW, trunkH, trunkW}, {0,0,1}, {1,1}});
+  treeVertices.push_back({{trunkW, trunkH, trunkW}, {0,0,1}, {1,1}});
+  treeVertices.push_back({{-trunkW, trunkH, trunkW}, {0,0,1}, {0,1}});
+  treeVertices.push_back({{-trunkW, 0.0f, trunkW}, {0,0,1}, {0,0}});
+  // Left
+  treeVertices.push_back({{-trunkW, 0.0f, trunkW}, {-1,0,0}, {0,0}});
+  treeVertices.push_back({{-trunkW, 0.0f, -trunkW}, {-1,0,0}, {1,0}});
+  treeVertices.push_back({{-trunkW, trunkH, -trunkW}, {-1,0,0}, {1,1}});
+  treeVertices.push_back({{-trunkW, trunkH, -trunkW}, {-1,0,0}, {1,1}});
+  treeVertices.push_back({{-trunkW, trunkH, trunkW}, {-1,0,0}, {0,1}});
+  treeVertices.push_back({{-trunkW, 0.0f, trunkW}, {-1,0,0}, {0,0}});
+  // Right
+  treeVertices.push_back({{trunkW, 0.0f, trunkW}, {1,0,0}, {0,0}});
+  treeVertices.push_back({{trunkW, 0.0f, -trunkW}, {1,0,0}, {1,0}});
+  treeVertices.push_back({{trunkW, trunkH, -trunkW}, {1,0,0}, {1,1}});
+  treeVertices.push_back({{trunkW, trunkH, -trunkW}, {1,0,0}, {1,1}});
+  treeVertices.push_back({{trunkW, trunkH, trunkW}, {1,0,0}, {0,1}});
+  treeVertices.push_back({{trunkW, 0.0f, trunkW}, {1,0,0}, {0,0}});
 
-  // Canopy (simple pyramid/cone for leaves)
-  float canopyHeight = 3.0f;
-  float canopyBase = 1.5f;
-  glm::vec3 greenColor(0.2f, 0.8f, 0.2f);
+  // --- FOLIAGE (3 Stacked Pyramids) ---
+  float startY = trunkH * 0.5f;
+  float levelH = 2.5f;
+  float baseScale = 1.0f;
+  
+  for(int i=0; i<3; i++) {
+      float y = startY + (i * 1.5f);
+      float w = 2.0f * baseScale;
+      float h = levelH;
+      
+      glm::vec3 top(0.0f, y + h, 0.0f);
+      glm::vec3 c1(-w, y, -w);
+      glm::vec3 c2(w, y, -w);
+      glm::vec3 c3(w, y, w);
+      glm::vec3 c4(-w, y, w);
+      
+      // Face 1
+      treeVertices.push_back({c1, {0,0.5,-1}, {0,0}});
+      treeVertices.push_back({c2, {0,0.5,-1}, {1,0}});
+      treeVertices.push_back({top, {0,0.5,-1}, {0.5,1}});
+      // Face 2
+      treeVertices.push_back({c2, {1,0.5,0}, {0,0}});
+      treeVertices.push_back({c3, {1,0.5,0}, {1,0}});
+      treeVertices.push_back({top, {1,0.5,0}, {0.5,1}});
+      // Face 3
+      treeVertices.push_back({c3, {0,0.5,1}, {0,0}});
+      treeVertices.push_back({c4, {0,0.5,1}, {1,0}});
+      treeVertices.push_back({top, {0,0.5,1}, {0.5,1}});
+      // Face 4
+      treeVertices.push_back({c4, {-1,0.5,0}, {0,0}});
+      treeVertices.push_back({c1, {-1,0.5,0}, {1,0}});
+      treeVertices.push_back({top, {-1,0.5,0}, {0.5,1}});
+      
+      baseScale *= 0.7f; // Get smaller as we go up
+  }
 
-  // Canopy triangular faces
-  glm::vec3 canopyTop(0.0f, trunkHeight + canopyHeight, 0.0f);
-  glm::vec3 canopyCorner1(-canopyBase, trunkHeight, -canopyBase);
-  glm::vec3 canopyCorner2(canopyBase, trunkHeight, -canopyBase);
-  glm::vec3 canopyCorner3(canopyBase, trunkHeight, canopyBase);
-  glm::vec3 canopyCorner4(-canopyBase, trunkHeight, canopyBase);
-
-  // Front face
-  treeVertices.push_back({canopyCorner1, {0.0f, 0.5f, -1.0f}, {0.0f, 0.0f}});
-  treeVertices.push_back({canopyCorner2, {0.0f, 0.5f, -1.0f}, {1.0f, 0.0f}});
-  treeVertices.push_back({canopyTop, {0.0f, 0.5f, -1.0f}, {0.5f, 1.0f}});
-
-  // Right face
-  treeVertices.push_back({canopyCorner2, {1.0f, 0.5f, 0.0f}, {0.0f, 0.0f}});
-  treeVertices.push_back({canopyCorner3, {1.0f, 0.5f, 0.0f}, {1.0f, 0.0f}});
-  treeVertices.push_back({canopyTop, {1.0f, 0.5f, 0.0f}, {0.5f, 1.0f}});
-
-  // Back face
-  treeVertices.push_back({canopyCorner3, {0.0f, 0.5f, 1.0f}, {0.0f, 0.0f}});
-  treeVertices.push_back({canopyCorner4, {0.0f, 0.5f, 1.0f}, {1.0f, 0.0f}});
-  treeVertices.push_back({canopyTop, {0.0f, 0.5f, 1.0f}, {0.5f, 1.0f}});
-
-  // Left face
-  treeVertices.push_back({canopyCorner4, {-1.0f, 0.5f, 0.0f}, {0.0f, 0.0f}});
-  treeVertices.push_back({canopyCorner1, {-1.0f, 0.5f, 0.0f}, {1.0f, 0.0f}});
-  treeVertices.push_back({canopyTop, {-1.0f, 0.5f, 0.0f}, {0.5f, 1.0f}});
-
-  treeMesh = new Mesh(treeVertices, {}, {});
+  treeMesh = new Mesh(treeVertices, {}, treeTextures);
 
   // Position trees around the perimeter of the outdoor area
   float treeSpacing = 4.0f;
@@ -486,130 +514,86 @@ end_loop_init:
   std::cout << "Outdoor environment created with " << treePositions.size()
             << " trees" << std::endl;
 
-  // 6. Create Simple Procedural Portal at Maze End
-  std::vector<Vertex> portalVertices;
-
-  // Portal dimensions
-  float pillarWidth = 0.2f;
-  float pillarHeight = 2.0f;
-  float archWidth = 1.5f;
-  float archThickness = 0.15f;
-
-  glm::vec3 portalColor(0.5f, 0.3f, 0.8f); // Purple/mystical color
-
-  // Left Pillar (simple box)
-  float leftX = -archWidth / 2.0f;
-  // Front face
-  portalVertices.push_back({{leftX - pillarWidth, 0.0f, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {0.0f, 0.0f}});
-  portalVertices.push_back({{leftX + pillarWidth, 0.0f, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {1.0f, 0.0f}});
-  portalVertices.push_back({{leftX + pillarWidth, pillarHeight, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{leftX + pillarWidth, pillarHeight, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{leftX - pillarWidth, pillarHeight, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {0.0f, 1.0f}});
-  portalVertices.push_back({{leftX - pillarWidth, 0.0f, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {0.0f, 0.0f}});
-
-  // Back face
-  portalVertices.push_back({{leftX - pillarWidth, 0.0f, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.0f, 0.0f}});
-  portalVertices.push_back({{leftX + pillarWidth, 0.0f, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {1.0f, 0.0f}});
-  portalVertices.push_back({{leftX + pillarWidth, pillarHeight, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{leftX + pillarWidth, pillarHeight, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{leftX - pillarWidth, pillarHeight, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.0f, 1.0f}});
-  portalVertices.push_back({{leftX - pillarWidth, 0.0f, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.0f, 0.0f}});
-
-  // Right Pillar
-  float rightX = archWidth / 2.0f;
-  // Front face
-  portalVertices.push_back({{rightX - pillarWidth, 0.0f, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {0.0f, 0.0f}});
-  portalVertices.push_back({{rightX + pillarWidth, 0.0f, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {1.0f, 0.0f}});
-  portalVertices.push_back({{rightX + pillarWidth, pillarHeight, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{rightX + pillarWidth, pillarHeight, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{rightX - pillarWidth, pillarHeight, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {0.0f, 1.0f}});
-  portalVertices.push_back({{rightX - pillarWidth, 0.0f, -pillarWidth},
-                            {0.0f, 0.0f, -1.0f},
-                            {0.0f, 0.0f}});
-
-  // Back face
-  portalVertices.push_back({{rightX - pillarWidth, 0.0f, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.0f, 0.0f}});
-  portalVertices.push_back({{rightX + pillarWidth, 0.0f, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {1.0f, 0.0f}});
-  portalVertices.push_back({{rightX + pillarWidth, pillarHeight, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{rightX + pillarWidth, pillarHeight, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {1.0f, 1.0f}});
-  portalVertices.push_back({{rightX - pillarWidth, pillarHeight, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.0f, 1.0f}});
-  portalVertices.push_back({{rightX - pillarWidth, 0.0f, pillarWidth},
-                            {0.0f, 0.0f, 1.0f},
-                            {0.0f, 0.0f}});
-
-  // Top arch (curved, made of segments)
-  int archSegments = 12;
-  float archRadius = archWidth / 2.0f;
-  for (int i = 0; i < archSegments; i++) {
-    float angle1 = glm::radians(180.0f - (i * 180.0f / archSegments));
-    float angle2 = glm::radians(180.0f - ((i + 1) * 180.0f / archSegments));
-
-    float x1 = archRadius * cos(angle1);
-    float y1 = pillarHeight + archRadius * sin(angle1);
-    float x2 = archRadius * cos(angle2);
-    float y2 = pillarHeight + archRadius * sin(angle2);
-
-    // Front face of arch segment
-    portalVertices.push_back(
-        {{x1, y1, -archThickness}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}});
-    portalVertices.push_back(
-        {{x2, y2, -archThickness}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}});
-    portalVertices.push_back(
-        {{x2, y2, archThickness}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}});
-    portalVertices.push_back(
-        {{x2, y2, archThickness}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}});
-    portalVertices.push_back(
-        {{x1, y1, archThickness}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}});
-    portalVertices.push_back(
-        {{x1, y1, -archThickness}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}});
+  // 6. Generate Procedural Sphere for Portal (Silver Sphere)
+  std::cout << "Generating procedural sphere for portal..." << std::endl;
+  std::vector<Vertex> portalFinalVertices;
+  
+  // Sphere parameters
+  float radius = 1.0f;
+  int sectorCount = 36;
+  int stackCount = 18;
+  float PI = 3.14159265359f;
+  
+  for(int i = 0; i <= stackCount; ++i)
+  {
+      float stackAngle = PI / 2 - i * PI / stackCount;        // starting from pi/2 to -pi/2
+      float xy = radius * cosf(stackAngle);             // r * cos(u)
+      float z = radius * sinf(stackAngle);              // r * sin(u)
+  
+      for(int j = 0; j <= sectorCount; ++j)
+      {
+          float sectorAngle = j * 2 * PI / sectorCount;           // starting from 0 to 2pi
+  
+          // Vertex position
+          float x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
+          float y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
+          glm::vec3 pos(x, y, z);
+          
+          // Vertex normal (normalized position for sphere)
+          glm::vec3 norm = glm::normalize(pos);
+          
+          // Vertex texCoord
+          float u = (float)j / sectorCount;
+          float v = (float)i / stackCount;
+          glm::vec2 uv(u, v);
+          
+          portalFinalVertices.push_back({pos, norm, uv});
+      }
   }
 
-  gateMesh = new Mesh(portalVertices, {}, {});
-  std::cout << "Procedural portal created successfully!" << std::endl;
+  // Reuse wallTextures just to have valid material structure, though we won't use the texture image
+  gateMesh = new Mesh(portalFinalVertices, {}, wallTextures);
+  // Mesh class handles EBO generation automatically if indices not provided? 
+  // Wait, Mesh class usually expects triangles. 
+  // Our Mesh class implementation takes vertices and draws them as GL_TRIANGLES.
+  // The above loop generates points. We need indices or a different generation strategy.
+  // ACTUALLY: The existing Mesh class might take raw vertices if drawn as GL_TRIANGLES, but we need to order them correctly.
+  
+  // CORRECTION: Let's regenerate using TRIANGLE STRIP logic or generate triangle indices.
+  // Since Mesh constructor takes Vertex vector and Index vector...
+  // Let's generate INDICES for the sphere.
+  
+  std::vector<unsigned int> sphereIndices;
+  for(int i = 0; i < stackCount; ++i)
+  {
+      int k1 = i * (sectorCount + 1);     // beginning of current stack
+      int k2 = k1 + sectorCount + 1;      // beginning of next stack
+  
+      for(int j = 0; j < sectorCount; ++j, ++k1, ++k2)
+      {
+          // 2 triangles per sector excluding first and last stacks
+          // k1 => k2 => k1+1
+          if(i != 0)
+          {
+              sphereIndices.push_back(k1);
+              sphereIndices.push_back(k2);
+              sphereIndices.push_back(k1 + 1);
+          }
+  
+          // k1+1 => k2 => k2+1
+          if(i != (stackCount-1))
+          {
+              sphereIndices.push_back(k1 + 1);
+              sphereIndices.push_back(k2);
+              sphereIndices.push_back(k2 + 1);
+          }
+      }
+  }
+  
+  // Re-create mesh WITH indices
+  gateMesh = new Mesh(portalFinalVertices, sphereIndices, wallTextures);
+  std::cout << "Sphere Portal Mesh initialized with " << portalFinalVertices.size() << " vertices and " << sphereIndices.size() << " indices." << std::endl;
+  std::cout << "Portal Mesh initialized." << std::endl;
 
   // Store portal position for proximity detection
   portalPosition =
@@ -619,7 +603,7 @@ end_loop_init:
   // Initialize text renderer for intro dialog
   textRenderer = new TextRenderer(Width, Height);
   // Load font (TODO: adjust path)
-  textRenderer->Load("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24);
+  textRenderer->Load("/System/Library/Fonts/Helvetica.ttc", 24);
   std::cout << "Text renderer initialized!" << std::endl;
 }
 
@@ -686,8 +670,21 @@ unsigned int loadTexture(char const *path) {
 bool CheckCollision(glm::vec3 targetPos, Maze *maze) {
   if (!maze)
     return false;
-  // Simple point collision (can be improved to bounding box in future)
-  return maze->IsWall(targetPos.x, targetPos.z);
+    
+  // Improved Collision Detection: Check a radius around the player
+  // This prevents the camera near-plane (0.1) from clipping through walls
+  float playerRadius = 0.2f; // Buffer distance
+  
+  // Check center
+  if (maze->IsWall(targetPos.x, targetPos.z)) return true;
+  
+  // Check 4 cardinal points around the player
+  if (maze->IsWall(targetPos.x + playerRadius, targetPos.z)) return true;
+  if (maze->IsWall(targetPos.x - playerRadius, targetPos.z)) return true;
+  if (maze->IsWall(targetPos.x, targetPos.z + playerRadius)) return true;
+  if (maze->IsWall(targetPos.x, targetPos.z - playerRadius)) return true;
+  
+  return false;
 }
 
 // ============================================================================
@@ -919,6 +916,7 @@ void Game::Update(float dt) {
 
 void Game::Render() {
   gameShader->use();
+  gameShader->setBool("isPortal", false); // Default to standard rendering
 
   // Configure flashlight (follows camera)
   gameShader->setVec3("light.position", camera->Position.x, camera->Position.y,
@@ -970,43 +968,121 @@ void Game::Render() {
 
   // Render trees around the perimeter
   if (treeMesh && treePositions.size() > 0) {
-    gameShader->setBool("useTexture", false);
+    gameShader->setBool("useTexture", true);
 
     for (const glm::vec3 &treePos : treePositions) {
       glm::mat4 treeModel = glm::mat4(1.0f);
       treeModel = glm::translate(treeModel, treePos);
+      
       gameShader->setMat4("model", glm::value_ptr(treeModel));
 
-      // Set tree colors (brown trunk + green canopy rendered together)
-      gameShader->setVec3("objectColor", 0.3f, 0.6f,
-                          0.2f); // Green-ish for overall tree
+      // Use white color to allow texture to show properly
+      gameShader->setVec3("objectColor", 1.0f, 1.0f, 1.0f);
       treeMesh->Draw(gameShader->ID);
     }
   }
 
   // Render portal environment at maze end
+  // Only render if close enough (e.g., < 50 units) - almost always visible
+  bool renderPortal = false;
   if (gateMesh && currentMaze) {
-    gameShader->setBool("useTexture", false);
-
-    // Position portal at maze end
-    glm::vec3 gatePos(currentMaze->endParams.x * currentMaze->cellSize, 0.0f,
-                      currentMaze->endParams.y * currentMaze->cellSize);
-
-    glm::mat4 gateModel = glm::mat4(1.0f);
-    gateModel = glm::translate(gateModel, gatePos);
-    gateModel = glm::scale(
-        gateModel,
-        glm::vec3(1.0f, 1.0f, 1.0f)); // Portal is already sized correctly
-
-    gameShader->setMat4("model", glm::value_ptr(gateModel));
-    gameShader->setVec3("objectColor", 0.3f, 0.6f, 0.9f); // Glowing cyan portal
-    gateMesh->Draw(gameShader->ID);
+      glm::vec3 gatePos(currentMaze->endParams.x * currentMaze->cellSize, 0.0f,
+                        currentMaze->endParams.y * currentMaze->cellSize);
+      float distToPortal = glm::distance(camera->Position, gatePos);
+      
+      if (distToPortal < 50.0f) { // Always visible when in corridor
+          renderPortal = true;
+          
+          gameShader->setBool("useTexture", false);
+          
+          // Enable Special "Liquid Silver" Shader Effect
+          gameShader->setBool("isPortal", true); // Use custom shader logic
+          gameShader->setFloat("time", (float)glfwGetTime());
+          
+          // Force environment tint to WHITE for the portal so it looks silver, not purple
+          gameShader->setVec3("environmentTint", 1.0f, 1.0f, 1.0f);
+          
+          // Animation Variables
+          float time = (float)glfwGetTime();
+          float rotationSpeed = 2.0f; // Fast spin
+          
+          // 1. Position (Centered in cell, floating lightly or grounded)
+          // Sphere radius 0.4 * 0.5 scale = 0.2 actual radius.
+          // Center at 0.2 height makes it sit EXACTLY on the floor
+          glm::vec3 animatedGatePos = gatePos;
+          animatedGatePos.y = 0.2f; 
+          
+          glm::mat4 gateModel = glm::mat4(1.0f);
+          gateModel = glm::translate(gateModel, animatedGatePos);
+          
+          // 2. Rotation (Spinning Silver Sphere)
+          gateModel = glm::rotate(gateModel, time * rotationSpeed, glm::vec3(0.0f, 1.0f, 0.0f));
+          
+          // 3. Scale (Radius 0.2 - Compact)
+          gateModel = glm::scale(gateModel, glm::vec3(0.2f, 0.2f, 0.2f)); 
+        
+          gameShader->setMat4("model", glm::value_ptr(gateModel));
+          
+          // Shader handles color mixing, but we pass white base just in case
+          gameShader->setVec3("objectColor", 1.0f, 1.0f, 1.0f); 
+          
+          gateMesh->Draw(gameShader->ID);
+          
+          // Reset flags & environment settings
+          gameShader->setBool("isPortal", false);
+          gameShader->setVec3("environmentTint", envTint.x, envTint.y, envTint.z);
+      }
   }
 
   // Render intro dialog overlay if needed
   if (showingIntroDialog) {
     RenderIntroDialog();
+  } else if (isPaused) {
+      RenderPauseOverlay();
   }
+}
+
+void Game::RenderPauseOverlay() {
+  if (!textRenderer) return;
+
+  // Initialize overlay resources if needed
+  if (!overlayResourcesInitialized) {
+    InitializeOverlayResources();
+  }
+
+  // Save OpenGL state
+  GLboolean depthTestEnabled = glIsEnabled(GL_DEPTH_TEST);
+  GLboolean blendEnabled = glIsEnabled(GL_BLEND);
+
+  glDisable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // Use shader and render background quad
+  glUseProgram(overlayShaderProgram);
+  glBindVertexArray(overlayVAO);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+
+  // Render centered "PAUSED" text
+  std::string pausedText = "PAUSED";
+  float scale = 2.0f;
+  float textWidth = textRenderer->CalculateTextWidth(pausedText, scale);
+  
+  float centerX = (Width - textWidth) / 2.0f;
+  float centerY = Height / 2.0f;
+
+  textRenderer->RenderText(pausedText, centerX, centerY, scale, glm::vec3(1.0f, 1.0f, 1.0f));
+
+  // Instructions
+  std::string subText = "Press ESC to Resume";
+  float subScale = 1.0f;
+  float subWidth = textRenderer->CalculateTextWidth(subText, subScale);
+  
+  textRenderer->RenderText(subText, (Width - subWidth) / 2.0f, centerY - 50.0f, subScale, glm::vec3(0.8f, 0.8f, 0.8f));
+
+  // Restore state
+  if (depthTestEnabled) glEnable(GL_DEPTH_TEST);
+  if (!blendEnabled) glDisable(GL_BLEND);
 }
 
 void Game::CheckPortalProximity() {
@@ -1119,39 +1195,59 @@ void Game::RenderIntroDialog() {
   float centerX = Width / 2.0f;
 
   // Title
-  textRenderer->RenderText("Maze: Escape from yourself", centerX - 120.0f,
-                           Height - 100.0f, 1.5f, glm::vec3(1.0f, 1.0f, 1.0f));
+  std::string title = "Maze: Escape from yourself";
+  float titleScale = 1.5f;
+  float titleWidth = textRenderer->CalculateTextWidth(title, titleScale);
+  textRenderer->RenderText(title, (Width - titleWidth) / 2.0f,
+                           Height - 100.0f, titleScale, glm::vec3(1.0f, 1.0f, 1.0f));
 
   // Mode
   std::string modeText =
       (mode == GameMode::HOST) ? "MODE: HOST" : "MODE: CLIENT";
-  textRenderer->RenderText(modeText, centerX - 100.0f, Height - 150.0f, 1.0f,
+  float modeScale = 1.0f;
+  float modeWidth = textRenderer->CalculateTextWidth(modeText, modeScale);
+  textRenderer->RenderText(modeText, (Width - modeWidth) / 2.0f, Height - 150.0f, modeScale,
                            glm::vec3(0.8f, 0.8f, 1.0f));
 
   // Objective
   std::string objectiveText;
   if (mode == GameMode::HOST) {
-    objectiveText = " 'No man ever steps in the same river twice, for it's not "
+    objectiveText = "'No man ever steps in the same river twice, for it's not "
                     "the same river and he's not the same man.' - Heraclitus";
   } else {
     objectiveText = "Do you still feel like you are the same man? Is this "
                     "still the same river?";
   }
-  textRenderer->RenderText(objectiveText, centerX - 220.0f, Height - 200.0f,
-                           0.8f, glm::vec3(0.9f, 0.9f, 0.9f));
+  float objScale = 0.6f; // Smaller to fit
+  float objWidth = textRenderer->CalculateTextWidth(objectiveText, objScale);
+  textRenderer->RenderText(objectiveText, (Width - objWidth) / 2.0f, Height - 200.0f,
+                           objScale, glm::vec3(0.9f, 0.9f, 0.9f));
 
   // Controls
-  textRenderer->RenderText("CONTROLS:", centerX - 100.0f, Height - 280.0f, 1.0f,
+  std::string controlsTitle = "CONTROLS:";
+  float controlsTitleWidth = textRenderer->CalculateTextWidth(controlsTitle, 1.0f);
+  textRenderer->RenderText(controlsTitle, (Width - controlsTitleWidth) / 2.0f, Height - 280.0f, 1.0f,
                            glm::vec3(1.0f, 0.9f, 0.5f));
-  textRenderer->RenderText("WASD / Arrow Keys - Move", centerX - 160.0f,
+
+  std::string c1 = "WASD / Arrow Keys - Move";
+  float c1Width = textRenderer->CalculateTextWidth(c1, 0.7f);
+  textRenderer->RenderText(c1, (Width - c1Width) / 2.0f,
                            Height - 320.0f, 0.7f, glm::vec3(0.9f, 0.9f, 0.9f));
-  textRenderer->RenderText("Mouse - Look Around", centerX - 140.0f,
+
+  std::string c2 = "Mouse - Look Around";
+  float c2Width = textRenderer->CalculateTextWidth(c2, 0.7f);
+  textRenderer->RenderText(c2, (Width - c2Width) / 2.0f,
                            Height - 350.0f, 0.7f, glm::vec3(0.9f, 0.9f, 0.9f));
-  textRenderer->RenderText("ESC - Pause/Resume", centerX - 130.0f,
+
+  std::string c3 = "ESC - Pause/Resume";
+  float c3Width = textRenderer->CalculateTextWidth(c3, 0.7f);
+  textRenderer->RenderText(c3, (Width - c3Width) / 2.0f,
                            Height - 380.0f, 0.7f, glm::vec3(0.9f, 0.9f, 0.9f));
 
   // Instruction to start
-  textRenderer->RenderText("Press ENTER to Start", centerX - 150.0f, 100.0f,
+  std::string startText = "Press ENTER to Start";
+  float startWidth = textRenderer->CalculateTextWidth(startText, 1.0f);
+  textRenderer->RenderText(startText, (Width - startWidth) / 2.0f, 100.0f,
                            1.0f, glm::vec3(0.5f, 1.0f, 0.5f));
 
   // Restore previous OpenGL state
