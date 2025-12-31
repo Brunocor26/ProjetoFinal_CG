@@ -1236,7 +1236,8 @@ void Game::RenderMinimap() {
     }
   }
   
-  // 4. Draw Portal (Green)
+  // 4. Draw Portal (Green) - DISABLED (User request to hide it)
+  /*
   float portalX = currentMaze->endParams.x;
   float portalZ = currentMaze->endParams.y;
   float pPx = startX + portalX * cellSize;
@@ -1249,6 +1250,7 @@ void Game::RenderMinimap() {
   mvp = projection * model;
   simpleShader->setMat4("MVP", glm::value_ptr(mvp));
   glDrawArrays(GL_TRIANGLES, 0, 6);
+  */
 
   // 5. Draw Player (Red)
   // Convert World Position to Grid Coordinates
@@ -1260,10 +1262,9 @@ void Game::RenderMinimap() {
   float uiX = startX + playerGridX * cellSize;
   float uiY = (startY + mapSize) - (playerGridZ * cellSize) - cellSize; // Approximate center
   
-  // Make player slightly larger than a cell for visibility
-  float playerIconSize = cellSize * 2.5f;
-  // Center the icon on the generated position (which is top-left of cell usually)
-  // Adjust for centering
+  // Make player size reasonable (slightly larger than cell)
+  float playerIconSize = cellSize * 1.2f; 
+  // Center the icon 
   uiX -= (playerIconSize - cellSize) / 2.0f;
   uiY -= (playerIconSize - cellSize) / 2.0f;
 
