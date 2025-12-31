@@ -673,7 +673,7 @@ bool CheckCollision(glm::vec3 targetPos, Maze *maze) {
     
   // Improved Collision Detection: Check a radius around the player
   // This prevents the camera near-plane (0.1) from clipping through walls
-  float playerRadius = 0.2f; // Buffer distance
+  float playerRadius = 0.3f; // Buffer distance (Increased to prevent corner clipping)
   
   // Check center
   if (maze->IsWall(targetPos.x, targetPos.z)) return true;
