@@ -10,20 +10,45 @@
 // tirado do livro Learn OpenGL : cap. 20
 
 // Estrutura para um vértice
+/**
+ * @brief Estrutura que representa um vértice 3D
+ */
 struct Vertex {
-  glm::vec3 Position;  // Posição
-  glm::vec3 Normal;    // Normal
-  glm::vec2 TexCoords; // Texture Coordinates
+  /// Posição do vértice no espaço 3D (x, y, z)
+  glm::vec3 Position;
+  
+  /// Vetor normal do vértice (para iluminação)
+  glm::vec3 Normal;
+  
+  /// Coordenadas de textura (u, v)
+  glm::vec2 TexCoords;
 };
 
-// Classe Mesh
+/**
+ * @brief Classe que encapsula uma malha 3D (Mesh)
+ *
+ * Gere os dados geométricos (vértices, índices) e materiais (texturas)
+ * de um objeto 3D. Responsável por configurar os buffers OpenGL (VAO, VBO, EBO)
+ * e realizar o desenho (draw call).
+ */
 class Mesh {
 public:
+  /// Lista de vértices da malha
   std::vector<Vertex> vertices;
+  
+  /// Lista de índices para desenho otimizado (EBO)
   std::vector<unsigned int> indices;
+  
+  /// Lista de texturas associadas à malha
   std::vector<Texture> textures;
 
-  // Construtor
+  /**
+   * @brief Construtor da Mesh
+   * 
+   * @param vertices Vetor de vértices
+   * @param indices Vetor de índices
+   * @param textures Vetor de texturas
+   */
   Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices,
        std::vector<Texture> textures) {
     this->vertices = vertices;

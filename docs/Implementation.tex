@@ -190,7 +190,7 @@ Para além do labirinto, o jogo inclui:
 \begin{itemize}
     \item \textbf{Plano de relva}: Superfície texturizada que estende 10 células além do labirinto
     \item \textbf{Árvores procedurais}: Árvores simples compostas por tronco (cilindro) e copa (pirâmide)
-    \item \textbf{Portal de saída}: Estrutura arquitetônica com dois pilares e arco semicircular
+    \item \textbf{Portal de saída}: Esfera flutuante com efeito visual de "Mercúrio Líquido/Prata" (\textit{Liquid Silver}), gerado proceduralmente via shaders GLSL, que pulsa e brilha, atuando como o objetivo final do jogo.
 \end{itemize}
 
 \subsection{Deteção de Colisões}
@@ -227,6 +227,17 @@ t = t^2(3 - 2t)
 \end{equation}
 
 Este \textit{smoothstep} garante uma transição visual suave, sem mudanças abruptas de cor.
+
+\subsection{Shader de Metal Líquido (Portal)}
+Para criar o efeito do portal "Mercúrio Líquido", foi implementado um shader procedural em GLSL que substitui a renderização de texturas padrão quando a flag \texttt{isPortal} está ativa.
+
+\textbf{Características do efeito}:
+\begin{itemize}
+    \item \textbf{Animação Procedural}: Combinação de três ondas sinusoidais (\texttt{sin/cos}) com frequências e fases diferentes, animadas pelo tempo (\texttt{uniform float time}), criando um padrão fluido e orgânico.
+    \item \textbf{Efeito Fresnel}: As bordas da esfera são iluminadas intensamente (efeito de borda/rim light) baseado no ângulo de visão (\texttt{dot(viewDir, normal)}), simulando um material metálico ou energético.
+    \item \textbf{Cores}: Mistura de uma base prateada azulada \texttt{(0.7, 0.75, 0.8)} com tons de branco puro nos picos das ondas e um leve brilho ciano nas bordas.
+    \item \textbf{Pulsação}: A intensidade global da cor oscila com o tempo, dando a impressão de um objeto "vivo".
+\end{itemize}
 
 \subsection{Texturas e Materiais}
 O jogo utiliza texturas PBR (Physically-Based Rendering) de alta qualidade (4K):
