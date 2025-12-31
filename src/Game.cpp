@@ -15,6 +15,8 @@
 #include "../include/TextRenderer.h"
 #include <GLFW/glfw3.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <algorithm>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/Texture.h"
 #include "../include/stb_image.h"
@@ -65,7 +67,8 @@ Game::Game(unsigned int width, unsigned int height, GameMode gameMode)
       movementLocked(gameMode == GameMode::CLIENT), serverSocket(-1),
       clientSocket(-1), showingIntroDialog(true), textRenderer(nullptr),
       inheritedColorTint(1.0f, 1.0f, 1.0f), overlayShaderProgram(0),
-      overlayVAO(0), overlayVBO(0), overlayResourcesInitialized(false) {
+      overlayVAO(0), overlayVBO(0), overlayResourcesInitialized(false),
+      minimapVAO(0), minimapVBO(0), simpleShader(nullptr) {
   // Initialize all keyboard keys to unpressed state
   for (int i = 0; i < 1024; i++)
     Keys[i] = false;
@@ -86,7 +89,11 @@ Game::~Game() {
   delete outdoorGroundMesh;
   delete treeMesh;
   delete gateMesh;
-  delete textRenderer;
+   delete textRenderer;
+   delete simpleShader;
+   
+   if (minimapVAO != 0) glDeleteVertexArrays(1, &minimapVAO);
+   if (minimapVBO != 0) glDeleteBuffers(1, &minimapVBO);
 
   // Clean up OpenGL overlay resources (VAO, VBO, shader)
   CleanupOverlayResources();
@@ -605,6 +612,29 @@ end_loop_init:
   // Load font (TODO: adjust path)
   textRenderer->Load("/System/Library/Fonts/Helvetica.ttc", 24);
   std::cout << "Text renderer initialized!" << std::endl;
+
+  // 7. Initialize Minimap Resources
+  simpleShader = new Shader("/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/shaders/simple.vert", "/Users/henriquelaia/maze-cg/ProjetoFinal_CG_Maze/shaders/simple.frag");
+  
+  // Create a unit quad (0,0 to 1,1) for minimap cells
+  float quadVertices[] = {
+      // Pos (x, y, z)
+      0.0f, 0.0f, 0.0f,
+      1.0f, 0.0f, 0.0f,
+      1.0f, 1.0f, 0.0f,
+      1.0f, 1.0f, 0.0f,
+      0.0f, 1.0f, 0.0f,
+      0.0f, 0.0f, 0.0f
+  };
+  
+  glGenVertexArrays(1, &minimapVAO);
+  glGenBuffers(1, &minimapVBO);
+  glBindVertexArray(minimapVAO);
+  glBindBuffer(GL_ARRAY_BUFFER, minimapVBO);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  glBindVertexArray(0);
 }
 
 /**
@@ -1042,7 +1072,10 @@ void Game::Render() {
       }
   }
 
-  // Render intro dialog overlay if needed
+  // Render Minimap (Top-Right)
+  RenderMinimap();
+
+  // Render text overlays
   if (showingIntroDialog) {
     RenderIntroDialog();
   } else if (isPaused) {
@@ -1146,6 +1179,106 @@ void Game::CheckPortalProximity() {
       connectedToPortal = true;
     }
   }
+}
+
+void Game::RenderMinimap() {
+  if (!simpleShader || !currentMaze) return;
+
+  // 1. Setup 2D Orthographic Projection for UI
+  // Map size: 200x200 pixels, Top-Right corner
+  float mapSize = 200.0f; 
+  float padding = 20.0f;
+  float startX = Width - mapSize - padding;
+  float startY = Height - mapSize - padding;
+  
+  // Projection matrix (0,0 is bottom-left)
+  glm::mat4 projection = glm::ortho(0.0f, (float)Width, 0.0f, (float)Height, -1.0f, 1.0f);
+
+  glDisable(GL_DEPTH_TEST); // Disable depth to draw over 3D scene
+  
+  simpleShader->use();
+  glBindVertexArray(minimapVAO);
+
+  // 2. Draw Background (Dark Grey)
+  glm::mat4 model = glm::mat4(1.0f);
+  model = glm::translate(model, glm::vec3(startX, startY, 0.0f));
+  model = glm::scale(model, glm::vec3(mapSize, mapSize, 1.0f));
+  
+  glm::mat4 mvp = projection * model;
+  simpleShader->setMat4("MVP", glm::value_ptr(mvp));
+  simpleShader->setVec3("LightColor", 0.2f, 0.2f, 0.2f); // Dark Grey Background
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+
+  // 3. Draw Maze Grid
+  // Calculate cell size in UI pixels
+  float cellSize = mapSize / std::max(currentMaze->width, currentMaze->height);
+  
+  // Set color to Black for Walls
+  simpleShader->setVec3("LightColor", 0.0f, 0.0f, 0.0f); 
+
+  for (int z = 0; z < currentMaze->height; z++) {
+    for (int x = 0; x < currentMaze->width; x++) {
+      // 0 = Wall
+      if (currentMaze->grid[z][x] == 0) {
+        float px = startX + x * cellSize;
+        // Invert Z because screen Y goes up, but grid Z goes "down" visually in top-down map
+        // (Assuming Z=0 is top of map)
+        float py = (startY + mapSize) - ((z + 1) * cellSize);
+        
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(px, py, 0.0f));
+        model = glm::scale(model, glm::vec3(cellSize, cellSize, 1.0f));
+        
+        mvp = projection * model;
+        simpleShader->setMat4("MVP", glm::value_ptr(mvp));
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+      }
+    }
+  }
+  
+  // 4. Draw Portal (Green)
+  float portalX = currentMaze->endParams.x;
+  float portalZ = currentMaze->endParams.y;
+  float pPx = startX + portalX * cellSize;
+  float pPy = (startY + mapSize) - ((portalZ + 1) * cellSize);
+  
+  simpleShader->setVec3("LightColor", 0.0f, 1.0f, 0.0f);
+  model = glm::mat4(1.0f);
+  model = glm::translate(model, glm::vec3(pPx, pPy, 0.0f));
+  model = glm::scale(model, glm::vec3(cellSize, cellSize, 1.0f));
+  mvp = projection * model;
+  simpleShader->setMat4("MVP", glm::value_ptr(mvp));
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+
+  // 5. Draw Player (Red)
+  // Convert World Position to Grid Coordinates
+  // Player Position is in World Units. To get Grid Coords: Pos / CellSize(World)
+  float playerGridX = camera->Position.x / currentMaze->cellSize;
+  float playerGridZ = camera->Position.z / currentMaze->cellSize;
+  
+  // Scale to Minimap UI pixels
+  float uiX = startX + playerGridX * cellSize;
+  float uiY = (startY + mapSize) - (playerGridZ * cellSize) - cellSize; // Approximate center
+  
+  // Make player slightly larger than a cell for visibility
+  float playerIconSize = cellSize * 2.5f;
+  // Center the icon on the generated position (which is top-left of cell usually)
+  // Adjust for centering
+  uiX -= (playerIconSize - cellSize) / 2.0f;
+  uiY -= (playerIconSize - cellSize) / 2.0f;
+
+  simpleShader->setVec3("LightColor", 1.0f, 0.0f, 0.0f); // Red
+  
+  model = glm::mat4(1.0f);
+  model = glm::translate(model, glm::vec3(uiX, uiY, 0.0f));
+  model = glm::scale(model, glm::vec3(playerIconSize, playerIconSize, 1.0f));
+  
+  mvp = projection * model;
+  simpleShader->setMat4("MVP", glm::value_ptr(mvp));
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+
+  // Restore OpenGL state
+  glEnable(GL_DEPTH_TEST);
 }
 
 glm::vec3 Game::GetEnvironmentTint() {

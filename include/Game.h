@@ -263,6 +263,19 @@ private:
    * Deleta shader, VAO e VBO. Chamado no destrutor.
    */
   void CleanupOverlayResources();
+  
+  // ========================================================================
+  // MINIMAP RESOURCES
+  // ========================================================================
+  
+  unsigned int minimapVAO;
+  unsigned int minimapVBO;
+  class Shader *simpleShader; // Shader for 2D solid color drawing
+  
+  /**
+   * @brief Renders the 2D Minimap
+   */
+  void RenderMinimap();
 };
 
 #endif // GAME_H
